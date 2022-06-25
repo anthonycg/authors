@@ -7,6 +7,7 @@ const Update = (props) => {
     const {id} = useParams();
     const {authorList, setAuthorList} = props;
     const [name, setName] = useState();
+    const [errors, setErrors] = useState([]);
     const navigate = useNavigate();
 
 
@@ -30,12 +31,21 @@ const Update = (props) => {
             console.log(res);
             navigate("/");
         })
-        .catch(err=> {console.log(err)})
+        .catch(err=>{
+            console.log(err.response.data.errors)
+            const errorResponse = err.response.data.errors;
+            const errorArr = [];
+            for (const key of Object.keys(errorResponse)) {
+                errorArr.push(errorResponse[key].message)
+            }
+            setErrors(errorArr);
+        })
     }
 
     return (
         <div>
             <form onSubmit={updateAuthor}>
+            {errors.map((err, index) => <p key={index}>{err}</p>)}
             <h2>Update an Author</h2>
             <label>Name</label>
             <input type="text" name="name" 
