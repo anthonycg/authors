@@ -1,6 +1,28 @@
 import React, {useEffect, useState} from "react";
 import axios from "axios";
 import {Link, Router, BrowserRouter} from "react-router-dom";
+import AuthorForm from "./AuthorForm";
+
+const styles = {
+    tbody: {
+        fontFamily: "arial",
+        borderCollapse: "collapse",
+        width: "100%"
+    },
+    td: {
+        marginBottom: "1rem"
+    },
+    th: {
+        border: "1px solid black",
+        textAlign: "left",
+        padding: "8px"
+    },
+    tr: {
+        backgroundColor: "gray"
+    }
+}
+
+
 
 const AuthorList = (props) => {
     const {authorList, setAuthorList, removeFromDom} = props;
@@ -25,21 +47,38 @@ const AuthorList = (props) => {
 
     return (
         <div>
-            {
-                authorList.map((author,index) => {
+                <h1 style={{textAlign: 'center', marginLeft: "0rem"}}>Pet Shelter</h1>
+                <h3 style={{textAlign: 'center', marginLeft: "0rem"}}>These pets are looking for a home</h3>
+            <button><Link to={'/authors/new/'}>Add new Pet</Link></button>
+            <div>
+            </div>
+        <tbody style={{flexDirection: "center",justifyContent: 'center'}}>
+                        <tr>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Update</th>
+                            <th>Edit</th>
+                        </tr>
+                {authorList.map((author,index) => {
                     return (
-                        <div key={index}>
-                            <hr />
-                            <p>{author.name}</p>
+                        <tr>
+                        {/* <div key={index}> */}
+                            <td key={index}><p>{author.name} </p></td>
+                            <td key={index}><p>{author.type} </p></td>
+                            <td><Link to={`/authors/${author._id}`}>Details</Link></td>
+                            <td><Link to={'/author/edit/'+author._id}>Edit</Link></td>
+                            
+                            
 
-                            <Link to={`/authors/${author._id}`}>{author.name}'s Page</Link>
-                            <Link to={'/author/edit/'+author._id}>Edit</Link>
-
-                            <button onClick={(e) => {deleteAuthor(author._id)}}>Delete</button>
-                        </div>
+                            
+                            
+                            {/* <button onClick={(e) => {deleteAuthor(author._id)}}>Delete</button> */}
+                        {/* </div> */}
+                        </tr>
                     )
                 })
             }
+            </tbody>
         </div>
     )
 }

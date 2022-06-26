@@ -4,6 +4,7 @@ import Main from './components/views/Main';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import OneAuthor from './components/OneAuthor';
 import Update from './components/Update';
+import AuthorForm from '../src/components/AuthorForm'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <BrowserRouter>
         <Routes>
           <Route element={<Main />} path="/"></Route>
+          <Route element={<AuthorForm />} path="/authors/new"></Route>
           <Route element={<OneAuthor/>} path="/authors/:id"></Route>
           <Route element={<Update />} path="/author/edit/:id"></Route>
         </Routes>
